@@ -95,4 +95,5 @@ class RobertaTokenizer(GPT2Tokenizer):
         """
         sep = [self.sep_token_id]
         cls = [self.cls_token_id]
-        return cls + token_ids_0 + sep + sep + token_ids_1 + sep
+        # return cls + token_ids_0 + sep + sep + token_ids_1 + sep
+        return cls + token_ids_0 + sep + token_ids_1 + sep
