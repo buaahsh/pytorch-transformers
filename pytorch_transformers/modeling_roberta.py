@@ -352,3 +352,38 @@ class RobertaClassificationHead(nn.Module):
         x = self.dropout(x)
         x = self.out_proj(x)
         return x
+
+
+class RobertaForMultipleChoice(BertPreTrainedModel):
+    config_class = RobertaConfig
+    pretrained_model_archive_map = ROBERTA_PRETRAINED_MODEL_ARCHIVE_MAP
+    base_model_prefix = "roberta"
+
+    def __init__(self, config):
+        super(RobertaForMultipleChoice, self).__init__(config)
+        config.num_labels = 1
+        self.num_choices = 5
+        self.num_labels = config.num_labels
+
+        self.roberta = RobertaModel(config)
+        self.classifier = RobertaClassificationHead(config)
+
+    def forward(self, input_ids, token_type_ids=None, attention_mask=None, labels=None,
+                position_ids=None, head_mask=None):
+        flat_input_ids = input_ids.view(-1, input_ids.size(-1))
+        # flat_token_type_ids = token_type_ids.view(-1, token_type_ids.size(-1))
+        flat_attention_mask = attention_mask.view(-1, attention_mask.size(-1))
+
+        outputs = self.roberta(flat_input_ids, position_ids=position_ids, token_type_ids=token_type_ids,
+                               attention_mask=flat_attention_mask, head_mask=head_mask)
+        sequence_output = outputs[0]
+        logits = self.classifier(sequence_output)
+
+        reshaped_logits = logits.view(-1, self.num_choices)
+
+        if labels is not None:
+            loss_fct = CrossEntropyLoss()
+            loss = loss_fct(reshaped_logits, labels)
+            return loss
+        else:
+            return reshaped_logits
