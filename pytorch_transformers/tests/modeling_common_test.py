@@ -28,9 +28,9 @@ import logging
 
 import torch
 
-from pytorch_transformers import PretrainedConfig, PreTrainedModel
-from pytorch_transformers.modeling_bert import BertModel, BertConfig, BERT_PRETRAINED_MODEL_ARCHIVE_MAP
-from pytorch_transformers.modeling_gpt2 import GPT2LMHeadModel, GPT2Config, GPT2_PRETRAINED_MODEL_ARCHIVE_MAP
+from pytorch_transformers import (PretrainedConfig, PreTrainedModel,
+                                  BertModel, BertConfig, BERT_PRETRAINED_MODEL_ARCHIVE_MAP,
+                                  GPT2LMHeadModel, GPT2Config, GPT2_PRETRAINED_MODEL_ARCHIVE_MAP)
 
 
 def _config_zero_init(config):
@@ -49,6 +49,7 @@ class CommonTestCases:
         test_torchscript = True
         test_pruning = True
         test_resize_embeddings = True
+        test_head_masking = True
 
         def test_initialization(self):
             config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
@@ -159,6 +160,10 @@ class CommonTestCases:
 
 
         def test_headmasking(self):
+            if not self.test_head_masking:
+                return
+
+            torch.manual_seed(42)
             config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
 
             config.output_attentions = True
@@ -208,9 +213,12 @@ class CommonTestCases:
             if not self.test_pruning:
                 return
 
-            config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
-
             for model_class in self.all_model_classes:
+                config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
+
+                if "head_mask" in inputs_dict:
+                    del inputs_dict["head_mask"]
+
                 config.output_attentions = True
                 config.output_hidden_states = False
                 model = model_class(config=config)
@@ -228,6 +236,120 @@ class CommonTestCases:
                     attentions[1].shape[-3], self.model_tester.num_attention_heads)
                 self.assertEqual(
                     attentions[-1].shape[-3], self.model_tester.num_attention_heads - 1)
+
+        def test_head_pruning_save_load_from_pretrained(self):
+            if not self.test_pruning:
+                return
+
+            for model_class in self.all_model_classes:
+                config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
+
+                if "head_mask" in inputs_dict:
+                    del inputs_dict["head_mask"]
+
+                config.output_attentions = True
+                config.output_hidden_states = False
+                model = model_class(config=config)
+                model.eval()
+                heads_to_prune = {0: list(range(1, self.model_tester.num_attention_heads)),
+                                -1: [0]}
+                model.prune_heads(heads_to_prune)
+                directory = "pruned_model"
+                if not os.path.exists(directory):
+                    os.makedirs(directory)
+                model.save_pretrained(directory)
+                model = model_class.from_pretrained(directory)
+
+                outputs = model(**inputs_dict)
+                attentions = outputs[-1]
+                self.assertEqual(attentions[0].shape[-3], 1)
+                self.assertEqual(attentions[1].shape[-3], self.model_tester.num_attention_heads)
+                self.assertEqual(attentions[-1].shape[-3], self.model_tester.num_attention_heads - 1)
+
+                shutil.rmtree(directory)
+
+        def test_head_pruning_save_load_from_config_init(self):
+            if not self.test_pruning:
+                return
+
+            for model_class in self.all_model_classes:
+                config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
+
+                if "head_mask" in inputs_dict:
+                    del inputs_dict["head_mask"]
+
+                config.output_attentions = True
+                config.output_hidden_states = False
+
+                heads_to_prune = {0: list(range(1, self.model_tester.num_attention_heads)),
+                                 -1: [0]}
+                config.pruned_heads = heads_to_prune
+
+                model = model_class(config=config)
+                model.eval()
+
+                outputs = model(**inputs_dict)
+                attentions = outputs[-1]
+
+                self.assertEqual(attentions[0].shape[-3], 1)
+                self.assertEqual(attentions[1].shape[-3], self.model_tester.num_attention_heads)
+                self.assertEqual(attentions[-1].shape[-3], self.model_tester.num_attention_heads - 1)
+
+        def test_head_pruning_integration(self):
+            if not self.test_pruning:
+                return
+
+            for model_class in self.all_model_classes:
+                config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
+
+                if "head_mask" in inputs_dict:
+                    del inputs_dict["head_mask"]
+
+                config.output_attentions = True
+                config.output_hidden_states = False
+
+                heads_to_prune = {0: [0], 1: [1, 2]}
+                config.pruned_heads = heads_to_prune
+
+                model = model_class(config=config)
+                model.eval()
+
+                outputs = model(**inputs_dict)
+                attentions = outputs[-1]
+
+                self.assertEqual(attentions[0].shape[-3], self.model_tester.num_attention_heads - 1)
+                self.assertEqual(attentions[1].shape[-3], self.model_tester.num_attention_heads - 2)
+                self.assertEqual(attentions[2].shape[-3], self.model_tester.num_attention_heads)
+                self.assertEqual(attentions[3].shape[-3], self.model_tester.num_attention_heads)
+
+                directory = "pruned_model"
+
+                if not os.path.exists(directory):
+                    os.makedirs(directory)
+                model.save_pretrained(directory)
+                model = model_class.from_pretrained(directory)
+                shutil.rmtree(directory)
+
+                outputs = model(**inputs_dict)
+                attentions = outputs[-1]
+
+                self.assertEqual(attentions[0].shape[-3], self.model_tester.num_attention_heads - 1)
+                self.assertEqual(attentions[1].shape[-3], self.model_tester.num_attention_heads - 2)
+                self.assertEqual(attentions[2].shape[-3], self.model_tester.num_attention_heads)
+                self.assertEqual(attentions[3].shape[-3], self.model_tester.num_attention_heads)
+
+                heads_to_prune = {0: [0], 2: [1, 2]}
+                model.prune_heads(heads_to_prune)
+
+                outputs = model(**inputs_dict)
+                attentions = outputs[-1]
+
+                self.assertEqual(attentions[0].shape[-3], self.model_tester.num_attention_heads -1)
+                self.assertEqual(attentions[1].shape[-3], self.model_tester.num_attention_heads - 2)
+                self.assertEqual(attentions[2].shape[-3], self.model_tester.num_attention_heads - 2)
+                self.assertEqual(attentions[3].shape[-3], self.model_tester.num_attention_heads)
+
+                self.assertDictEqual(model.config.pruned_heads, {0: [0], 1: [1, 2], 2: [1, 2]})
 
 
         def test_hidden_states_output(self):
@@ -282,6 +404,9 @@ class CommonTestCases:
                 self.assertTrue(models_equal)
 
         def test_tie_model_weights(self):
+            if not self.test_torchscript:
+                return
+
             config, inputs_dict = self.model_tester.prepare_config_and_inputs_for_common()
 
             def check_same_values(layer_1, layer_2):

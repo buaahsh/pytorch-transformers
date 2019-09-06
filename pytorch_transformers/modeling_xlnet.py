@@ -29,9 +29,9 @@ from torch import nn
 from torch.nn import functional as F
 from torch.nn import CrossEntropyLoss, MSELoss
 
-from .modeling_utils import (CONFIG_NAME, WEIGHTS_NAME, PretrainedConfig, PreTrainedModel,
-                             SequenceSummary, PoolerAnswerClass, PoolerEndLogits, PoolerStartLogits,
-                             add_start_docstrings)
+from .modeling_utils import PreTrainedModel, prune_linear_layer, SequenceSummary, PoolerAnswerClass, PoolerEndLogits, PoolerStartLogits
+from .configuration_xlnet import XLNetConfig
+from .file_utils import add_start_docstrings
 
 
 logger = logging.getLogger(__name__)
@@ -39,10 +39,6 @@ logger = logging.getLogger(__name__)
 XLNET_PRETRAINED_MODEL_ARCHIVE_MAP = {
     'xlnet-base-cased': "https://s3.amazonaws.com/models.huggingface.co/bert/xlnet-base-cased-pytorch_model.bin",
     'xlnet-large-cased': "https://s3.amazonaws.com/models.huggingface.co/bert/xlnet-large-cased-pytorch_model.bin",
-}
-XLNET_PRETRAINED_CONFIG_ARCHIVE_MAP = {
-    'xlnet-base-cased': "https://s3.amazonaws.com/models.huggingface.co/bert/xlnet-base-cased-config.json",
-    'xlnet-large-cased': "https://s3.amazonaws.com/models.huggingface.co/bert/xlnet-large-cased-config.json",
 }
 
 
@@ -192,165 +188,11 @@ def swish(x):
 ACT2FN = {"gelu": gelu, "relu": torch.nn.functional.relu, "swish": swish}
 
 
-class XLNetConfig(PretrainedConfig):
-    """Configuration class to store the configuration of a ``XLNetModel``.
-
-    Args:
-        vocab_size_or_config_json_file: Vocabulary size of ``inputs_ids`` in ``XLNetModel``.
-        d_model: Size of the encoder layers and the pooler layer.
-        n_layer: Number of hidden layers in the Transformer encoder.
-        n_head: Number of attention heads for each attention layer in
-            the Transformer encoder.
-        d_inner: The size of the "intermediate" (i.e., feed-forward)
-            layer in the Transformer encoder.
-        ff_activation: The non-linear activation function (function or string) in the
-            encoder and pooler. If string, "gelu", "relu" and "swish" are supported.
-        untie_r: untie relative position biases
-        attn_type: 'bi' for XLNet, 'uni' for Transformer-XL
-
-        dropout: The dropout probabilitiy for all fully connected
-            layers in the embeddings, encoder, and pooler.
-        dropatt: The dropout ratio for the attention
-            probabilities.
-        initializer_range: The sttdev of the truncated_normal_initializer for
-            initializing all weight matrices.
-        layer_norm_eps: The epsilon used by LayerNorm.
-
-        dropout: float, dropout rate.
-        dropatt: float, dropout rate on attention probabilities.
-        init: str, the initialization scheme, either "normal" or "uniform".
-        init_range: float, initialize the parameters with a uniform distribution
-            in [-init_range, init_range]. Only effective when init="uniform".
-        init_std: float, initialize the parameters with a normal distribution
-            with mean 0 and stddev init_std. Only effective when init="normal".
-        mem_len: int, the number of tokens to cache.
-        reuse_len: int, the number of tokens in the currect batch to be cached
-            and reused in the future.
-        bi_data: bool, whether to use bidirectional input pipeline.
-            Usually set to True during pretraining and False during finetuning.
-        clamp_len: int, clamp all relative distances larger than clamp_len.
-            -1 means no clamping.
-        same_length: bool, whether to use the same attention length for each token.
-        finetuning_task: name of the glue task on which the model was fine-tuned if any
-    """
-    pretrained_config_archive_map = XLNET_PRETRAINED_CONFIG_ARCHIVE_MAP
-
-    def __init__(self,
-                 vocab_size_or_config_json_file=32000,
-                 d_model=1024,
-                 n_layer=24,
-                 n_head=16,
-                 d_inner=4096,
-                 ff_activation="gelu",
-                 untie_r=True,
-                 attn_type="bi",
-
-                 initializer_range=0.02,
-                 layer_norm_eps=1e-12,
-
-                 dropout=0.1,
-                 mem_len=None,
-                 reuse_len=None,
-                 bi_data=False,
-                 clamp_len=-1,
-                 same_length=False,
-
-                 finetuning_task=None,
-                 num_labels=2,
-                 summary_type='last',
-                 summary_use_proj=True,
-                 summary_activation='tanh',
-                 summary_last_dropout=0.1,
-                 start_n_top=5,
-                 end_n_top=5,
-                 **kwargs):
-        """Constructs XLNetConfig.
-        """
-        super(XLNetConfig, self).__init__(**kwargs)
-
-        if isinstance(vocab_size_or_config_json_file, str) or (sys.version_info[0] == 2
-                        and isinstance(vocab_size_or_config_json_file, unicode)):
-            with open(vocab_size_or_config_json_file, "r", encoding='utf-8') as reader:
-                json_config = json.loads(reader.read())
-            for key, value in json_config.items():
-                self.__dict__[key] = value
-        elif isinstance(vocab_size_or_config_json_file, int):
-            self.n_token = vocab_size_or_config_json_file
-            self.d_model = d_model
-            self.n_layer = n_layer
-            self.n_head = n_head
-            assert d_model % n_head == 0
-            self.d_head = d_model // n_head
-            self.ff_activation = ff_activation
-            self.d_inner = d_inner
-            self.untie_r = untie_r
-            self.attn_type = attn_type
-
-            self.initializer_range = initializer_range
-            self.layer_norm_eps = layer_norm_eps
-
-            self.dropout = dropout
-            self.mem_len = mem_len
-            self.reuse_len = reuse_len
-            self.bi_data = bi_data
-            self.clamp_len = clamp_len
-            self.same_length = same_length
-
-            self.finetuning_task = finetuning_task
-            self.num_labels = num_labels
-            self.summary_type = summary_type
-            self.summary_use_proj = summary_use_proj
-            self.summary_activation = summary_activation
-            self.summary_last_dropout = summary_last_dropout
-            self.start_n_top = start_n_top
-            self.end_n_top = end_n_top
-        else:
-            raise ValueError("First argument must be either a vocabulary size (int)"
-                             "or the path to a pretrained model config file (str)")
-
-    @property
-    def max_position_embeddings(self):
-        return -1
-
-    @property
-    def vocab_size(self):
-        return self.n_token
-
-    @vocab_size.setter
-    def vocab_size(self, value):
-        self.n_token = value
-
-    @property
-    def hidden_size(self):
-        return self.d_model
-
-    @property
-    def num_attention_heads(self):
-        return self.n_head
-
-    @property
-    def num_hidden_layers(self):
-        return self.n_layer
-
-
 try:
     from apex.normalization.fused_layer_norm import FusedLayerNorm as XLNetLayerNorm
 except (ImportError, AttributeError) as e:
     logger.info("Better speed can be achieved with apex installed from https://www.github.com/nvidia/apex .")
-    class XLNetLayerNorm(nn.Module):
-        def __init__(self, d_model, eps=1e-12):
-            """Construct a layernorm module in the TF style (epsilon inside the square root).
-            """
-            super(XLNetLayerNorm, self).__init__()
-            self.weight = nn.Parameter(torch.ones(d_model))
-            self.bias = nn.Parameter(torch.zeros(d_model))
-            self.variance_epsilon = eps
-
-        def forward(self, x):
-            u = x.mean(-1, keepdim=True)
-            s = (x - u).pow(2).mean(-1, keepdim=True)
-            x = (x - u) / torch.sqrt(s + self.variance_epsilon)
-            return self.weight * x + self.bias
+    from torch.nn import LayerNorm as XLNetLayerNorm
 
 class XLNetRelativeAttention(nn.Module):
     def __init__(self, config):
@@ -418,7 +260,10 @@ class XLNetRelativeAttention(nn.Module):
         attn_score = (ac + bd + ef) * self.scale
         if attn_mask is not None:
             # attn_score = attn_score * (1 - attn_mask) - 1e30 * attn_mask
-            attn_score = attn_score - 1e30 * attn_mask
+            if attn_mask.dtype == torch.float16:
+                attn_score = attn_score - 65500 * attn_mask
+            else:
+                attn_score = attn_score - 1e30 * attn_mask
 
         # attention probability
         attn_prob = F.softmax(attn_score, dim=1)
@@ -596,10 +441,7 @@ class XLNetPreTrainedModel(PreTrainedModel):
     load_tf_weights = load_tf_weights_in_xlnet
     base_model_prefix = "transformer"
 
-    def __init__(self, *inputs, **kwargs):
-        super(XLNetPreTrainedModel, self).__init__(*inputs, **kwargs)
-
-    def init_weights(self, module):
+    def _init_weights(self, module):
         """ Initialize the weights.
         """
         if isinstance(module, (nn.Linear, nn.Embedding)):
@@ -677,8 +519,11 @@ XLNET_INPUTS_DOCSTRING = r"""
             ``1`` for tokens that are MASKED, ``0`` for tokens that are NOT MASKED.
         **mems**: (`optional`)
             list of ``torch.FloatTensor`` (one for each layer):
-            that contains pre-computed hidden-states (key and values in the attention blocks) as computed by the model
+            that contains pre-computed hidden-states (key and values in the attention blocks) as output by the model
             (see `mems` output below). Can be used to speed up sequential decoding and attend to longer context.
+            To activate mems you need to set up config.mem_len to a positive value which will be the max number of tokens in
+            the memory output by the model. E.g. `model = XLNetModel.from_pretrained('xlnet-base-case, mem_len=1024)` will
+            instantiate a model which can use up to 1024 tokens of memory (in addition to the input it self).
         **perm_mask**: (`optional`) ``torch.FloatTensor`` of shape ``(batch_size, sequence_length, sequence_length)``:
             Mask to indicate the attention pattern for each input token with values selected in ``[0, 1]``:
             If ``perm_mask[k, i, j] = 0``, i attend to j in batch k;
@@ -705,7 +550,8 @@ class XLNetModel(XLNetPreTrainedModel):
         **mems**:
             list of ``torch.FloatTensor`` (one for each layer):
             that contains pre-computed hidden-states (key and values in the attention blocks) as computed by the model
-            (see `mems` input above). Can be used to speed up sequential decoding and attend to longer context.
+            if config.mem_len > 0 else tuple of None. Can be used to speed up sequential decoding and attend to longer context.
+            See details in the docstring of the `mems` input above.
         **hidden_states**: (`optional`, returned when ``config.output_hidden_states=True``)
             list of ``torch.FloatTensor`` (one for the output of each layer + the output of the embeddings)
             of shape ``(batch_size, sequence_length, hidden_size)``:
@@ -742,7 +588,7 @@ class XLNetModel(XLNetPreTrainedModel):
         self.layer = nn.ModuleList([XLNetLayer(config) for _ in range(config.n_layer)])
         self.dropout = nn.Dropout(config.dropout)
 
-        self.apply(self.init_weights)
+        self.init_weights()
 
     def _resize_token_embeddings(self, new_num_tokens):
         self.word_embedding = self._get_resized_embeddings(self.word_embedding, new_num_tokens)
@@ -859,7 +705,7 @@ class XLNetModel(XLNetPreTrainedModel):
         target_mapping = target_mapping.permute(1, 2, 0).contiguous() if target_mapping is not None else None
 
         qlen, bsz = input_ids.shape[0], input_ids.shape[1]
-        mlen = mems[0].shape[0] if mems is not None else 0
+        mlen = mems[0].shape[0] if mems is not None and mems[0] is not None else 0
         klen = mlen + qlen
 
         dtype_float = next(self.parameters()).dtype
@@ -1011,7 +857,8 @@ class XLNetLMHeadModel(XLNetPreTrainedModel):
         **mems**:
             list of ``torch.FloatTensor`` (one for each layer):
             that contains pre-computed hidden-states (key and values in the attention blocks) as computed by the model
-            (see `mems` input above). Can be used to speed up sequential decoding and attend to longer context.
+            if config.mem_len > 0 else tuple of None. Can be used to speed up sequential decoding and attend to longer context.
+            See details in the docstring of the `mems` input above.
         **hidden_states**: (`optional`, returned when ``config.output_hidden_states=True``)
             list of ``torch.FloatTensor`` (one for the output of each layer + the output of the embeddings)
             of shape ``(batch_size, sequence_length, hidden_size)``:
@@ -1042,7 +889,7 @@ class XLNetLMHeadModel(XLNetPreTrainedModel):
         self.transformer = XLNetModel(config)
         self.lm_loss = nn.Linear(config.d_model, config.n_token, bias=True)
 
-        self.apply(self.init_weights)
+        self.init_weights()
         self.tie_weights()
 
     def tie_weights(self):
@@ -1091,7 +938,8 @@ class XLNetForSequenceClassification(XLNetPreTrainedModel):
         **mems**:
             list of ``torch.FloatTensor`` (one for each layer):
             that contains pre-computed hidden-states (key and values in the attention blocks) as computed by the model
-            (see `mems` input above). Can be used to speed up sequential decoding and attend to longer context.
+            if config.mem_len > 0 else tuple of None. Can be used to speed up sequential decoding and attend to longer context.
+            See details in the docstring of the `mems` input above.
         **hidden_states**: (`optional`, returned when ``config.output_hidden_states=True``)
             list of ``torch.FloatTensor`` (one for the output of each layer + the output of the embeddings)
             of shape ``(batch_size, sequence_length, hidden_size)``:
@@ -1118,7 +966,7 @@ class XLNetForSequenceClassification(XLNetPreTrainedModel):
         self.sequence_summary = SequenceSummary(config)
         self.logits_proj = nn.Linear(config.d_model, config.num_labels)
 
-        self.apply(self.init_weights)
+        self.init_weights()
 
     def forward(self, input_ids, token_type_ids=None, input_mask=None, attention_mask=None,
                 mems=None, perm_mask=None, target_mapping=None,
@@ -1189,7 +1037,8 @@ class XLNetForQuestionAnswering(XLNetPreTrainedModel):
         **mems**:
             list of ``torch.FloatTensor`` (one for each layer):
             that contains pre-computed hidden-states (key and values in the attention blocks) as computed by the model
-            (see `mems` input above). Can be used to speed up sequential decoding and attend to longer context.
+            if config.mem_len > 0 else tuple of None. Can be used to speed up sequential decoding and attend to longer context.
+            See details in the docstring of the `mems` input above.
         **hidden_states**: (`optional`, returned when ``config.output_hidden_states=True``)
             list of ``torch.FloatTensor`` (one for the output of each layer + the output of the embeddings)
             of shape ``(batch_size, sequence_length, hidden_size)``:
@@ -1219,7 +1068,7 @@ class XLNetForQuestionAnswering(XLNetPreTrainedModel):
         self.end_logits = PoolerEndLogits(config)
         self.answer_class = PoolerAnswerClass(config)
 
-        self.apply(self.init_weights)
+        self.init_weights()
 
     def forward(self, input_ids, token_type_ids=None, input_mask=None, attention_mask=None,
                 mems=None, perm_mask=None, target_mapping=None,

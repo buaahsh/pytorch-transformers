@@ -22,14 +22,11 @@ import logging
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.nn import CrossEntropyLoss, MSELoss
 
-from pytorch_transformers.modeling_bert import (BertConfig, BertEmbeddings,
-                                                BertLayerNorm, BertModel,
-                                                BertPreTrainedModel, gelu)
-
-from pytorch_transformers.modeling_utils import add_start_docstrings
+from .modeling_bert import BertEmbeddings, BertLayerNorm, BertModel, BertPreTrainedModel, gelu
+from .configuration_roberta import RobertaConfig
+from .file_utils import add_start_docstrings
 
 logger = logging.getLogger(__name__)
 
@@ -38,13 +35,6 @@ ROBERTA_PRETRAINED_MODEL_ARCHIVE_MAP = {
     'roberta-large': "https://s3.amazonaws.com/models.huggingface.co/bert/roberta-large-pytorch_model.bin",
     'roberta-large-mnli': "https://s3.amazonaws.com/models.huggingface.co/bert/roberta-large-mnli-pytorch_model.bin",
 }
-
-ROBERTA_PRETRAINED_CONFIG_ARCHIVE_MAP = {
-    'roberta-base': "https://s3.amazonaws.com/models.huggingface.co/bert/roberta-base-config.json",
-    'roberta-large': "https://s3.amazonaws.com/models.huggingface.co/bert/roberta-large-config.json",
-    'roberta-large-mnli': "https://s3.amazonaws.com/models.huggingface.co/bert/roberta-large-mnli-config.json",
-}
-
 
 class RobertaEmbeddings(BertEmbeddings):
     """
@@ -62,10 +52,6 @@ class RobertaEmbeddings(BertEmbeddings):
             position_ids = torch.arange(self.padding_idx+1, seq_length+self.padding_idx+1, dtype=torch.long, device=input_ids.device)
             position_ids = position_ids.unsqueeze(0).expand_as(input_ids)
         return super(RobertaEmbeddings, self).forward(input_ids, token_type_ids=token_type_ids, position_ids=position_ids)
-
-
-class RobertaConfig(BertConfig):
-    pretrained_config_archive_map = ROBERTA_PRETRAINED_CONFIG_ARCHIVE_MAP
 
 
 ROBERTA_START_DOCSTRING = r"""    The RoBERTa model was proposed in
@@ -98,15 +84,15 @@ ROBERTA_INPUTS_DOCSTRING = r"""
     Inputs:
         **input_ids**: ``torch.LongTensor`` of shape ``(batch_size, sequence_length)``:
             Indices of input sequence tokens in the vocabulary.
-            To match pre-training, RoBERTa input sequence should be formatted with [CLS] and [SEP] tokens as follows:
+            To match pre-training, RoBERTa input sequence should be formatted with <s> and </s> tokens as follows:
 
             (a) For sequence pairs:
 
-                ``tokens:         [CLS] is this jack ##son ##ville ? [SEP][SEP] no it is not . [SEP]``
+                ``tokens:         <s> Is this Jacksonville ? </s> </s> No it is not . </s>``
 
             (b) For single sequences:
 
-                ``tokens:         [CLS] the dog is hairy . [SEP]``
+                ``tokens:         <s> the dog is hairy . </s>``
 
             Fully encoded sequences or sequence pairs can be obtained using the RobertaTokenizer.encode function with 
             the ``add_special_tokens`` parameter set to ``True``.
@@ -168,7 +154,7 @@ class RobertaModel(BertModel):
         super(RobertaModel, self).__init__(config)
 
         self.embeddings = RobertaEmbeddings(config)
-        self.apply(self.init_weights)
+        self.init_weights()
 
     def forward(self, input_ids, token_type_ids=None, attention_mask=None, position_ids=None, head_mask=None):
         if input_ids[:, 0].sum().item() != 0:
@@ -220,7 +206,7 @@ class RobertaForMaskedLM(BertPreTrainedModel):
         self.roberta = RobertaModel(config)
         self.lm_head = RobertaLMHead(config)
 
-        self.apply(self.init_weights)
+        self.init_weights()
         self.tie_weights()
 
     def tie_weights(self):
