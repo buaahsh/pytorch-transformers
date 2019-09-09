@@ -124,10 +124,10 @@ def read_cmsqa_examples(input_file, is_training, num_choices):
             )
             examples.append(example)
 
-            if len(examples) > 100:
-              logger.info(" ******* Debug Mode ******* ")
-              logger.info(" Only load {} examples ! ".format(len(examples)))
-              break
+            # if len(examples) > 100:
+            #   logger.info(" ******* Debug Mode ******* ")
+            #   logger.info(" Only load {} examples ! ".format(len(examples)))
+            #   break
 
     return examples
 
