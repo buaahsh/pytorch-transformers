@@ -581,7 +581,7 @@ class BertModel(BertPreTrainedModel):
         for layer, heads in heads_to_prune.items():
             self.encoder.layer[layer].attention.prune_heads(heads)
 
-    def forward(self, input_ids, token_type_ids=None, attention_mask=None, position_ids=None, head_mask=None):
+    def forward(self, input_ids, token_type_ids=None, attention_mask=None, position_ids=None, head_mask=None, context_inputs=None):
         if attention_mask is None:
             attention_mask = torch.ones_like(input_ids)
         if token_type_ids is None:
@@ -618,6 +618,11 @@ class BertModel(BertPreTrainedModel):
             head_mask = [None] * self.config.num_hidden_layers
 
         embedding_output = self.embeddings(input_ids, position_ids=position_ids, token_type_ids=token_type_ids)
+
+        if context_inputs is not None:
+            # logger.warning('You are using context inputs')
+            extended_attention_mask = extended_attention_mask.repeat([1,1,1,2])
+            embedding_output = torch.cat([embedding_output, context_inputs], 1)
         encoder_outputs = self.encoder(embedding_output,
                                        extended_attention_mask,
                                        head_mask=head_mask)

@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5bd8393-49e3-43d8-a114-1e079fa8e895" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pytorch_transformers/optimization.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch_transformers/optimization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pytorch_transformers/tokenization_roberta.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch_transformers/tokenization_roberta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pytorch_transformers/modeling_bert.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch_transformers/modeling_bert.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pytorch_transformers/modeling_context.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch_transformers/modeling_context.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,33 +23,33 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="8" />
+          <entry key="py" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="8" />
+          <entry key="Python" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="663" />
+          <entry key="py" value="971" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="663" />
+          <entry key="Python" value="971" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/run_csq_with_context.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-126">
-              <caret line="475" column="37" selection-start-line="475" selection-start-column="37" selection-end-line="475" selection-end-column="37" />
+            <state relative-caret-position="280">
+              <caret line="572" selection-start-line="572" selection-end-line="572" />
               <folding>
                 <element signature="e#803#867#0" expanded="true" />
                 <element signature="e#2226#2940#0" />
@@ -69,8 +71,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="753">
-              <caret line="374" column="25" selection-start-line="374" selection-start-column="25" selection-end-line="374" selection-end-column="25" />
+            <state relative-caret-position="470">
+              <caret line="162" column="86" lean-forward="true" selection-start-line="162" selection-start-column="86" selection-end-line="162" selection-end-column="86" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pytorch_transformers/convert_roberta_checkpoint_to_pytorch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3198">
+              <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -78,8 +89,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_bert.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-24">
-              <caret line="17" selection-start-line="17" selection-end-line="28" selection-end-column="46" />
+            <state relative-caret-position="410">
+              <caret line="629" column="12" lean-forward="true" selection-start-line="629" selection-start-column="12" selection-end-line="629" selection-end-column="12" />
               <folding>
                 <element signature="e#737#819#0" expanded="true" />
               </folding>
@@ -96,13 +107,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_context.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="461">
+              <caret line="35" column="54" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
               <folding>
                 <element signature="e#0#82#0" expanded="true" />
+                <element signature="e#1672#3029#0" />
               </folding>
             </state>
           </provider>
@@ -134,8 +146,10 @@
       <find>seed</find>
       <find>model</find>
       <find>adam</find>
-      <find>adamw</find>
       <find>clip</find>
+      <find>log</find>
+      <find>context_in</find>
+      <find>adamw</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -144,10 +158,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/pytorch_transformers/modeling_context.py" />
         <option value="$PROJECT_DIR$/examples/run_csq_with_context.py" />
         <option value="$PROJECT_DIR$/pytorch_transformers/optimization.py" />
         <option value="$PROJECT_DIR$/pytorch_transformers/tokenization_roberta.py" />
+        <option value="$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py" />
+        <option value="$PROJECT_DIR$/pytorch_transformers/modeling_bert.py" />
+        <option value="$PROJECT_DIR$/pytorch_transformers/modeling_context.py" />
       </list>
     </option>
   </component>
@@ -220,7 +236,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/run_csq_with_context.py" />
-      <option name="PARAMETERS" value="--model_type roberta --model_name_or_path roberta-base --context_model roberta-base --tokenizer_name roberta-base --do_train --do_eval --train_file F:\shaohanh\git\csq\train_rand_split.jsonl --predict_file F:\shaohanh\git\csq\dev_rand_split.jsonl --per_gpu_train_batch_size 6 --gradient_accumulation_steps 2 --learning_rate 1e-5 --num_train_epochs 5 --max_seq_length 90 --output_dir F:\shaohanh\git\csq\csq_classification_context_v1" />
+      <option name="PARAMETERS" value="--model_type roberta --model_name_or_path roberta-base --context_model F:\shaohanh\pytorch_model.bin --tokenizer_name roberta-base --do_train --do_eval --train_file F:\shaohanh\git\csq\train_rand_split.jsonl --predict_file F:\shaohanh\git\csq\train_rand_split.jsonl --per_gpu_train_batch_size 6 --gradient_accumulation_steps 2 --learning_rate 1e-5 --num_train_epochs 5 --max_seq_length 90 --output_dir F:\shaohanh\git\csq\csq_classification_context_v1 --overwrite_output_dir" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -248,11 +264,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1932" height="943" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" weight="0.24973601" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.24920969" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -260,8 +276,8 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
       <window_info anchor="bottom" id="Version Control" order="5" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.25710753" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.23114957" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.22559653" />
+      <window_info active="true" anchor="bottom" id="Debug" order="7" visible="true" weight="0.23101953" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" />
@@ -305,6 +321,21 @@
           <line>369</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pytorch_transformers/convert_roberta_checkpoint_to_pytorch.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pytorch_transformers/modeling_context.py</url>
+          <line>30</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pytorch_transformers/modeling_bert.py</url>
+          <line>622</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
@@ -312,76 +343,66 @@
         <watch expression="context_model.named_parameters().__next__()" language="Python" />
         <watch expression="model.named_parameters().__next__()" language="Python" />
         <watch expression="model(**inputs)" language="Python" />
-        <watch expression="self.model.classifier(outputs[0] + context_outputs[0])" language="Python" />
-        <watch expression="self.model.classifier(sequence_output).size()" language="Python" />
+        <watch expression="flat_attention_mask.size()" language="Python" />
+        <watch expression="extended_attention_mask[0,0,0]" language="Python" />
+        <watch expression="input_ids.size()" language="Python" />
+        <watch expression="extended_attention_mask.repeat([1,1,1,2])[0,0,0][89]" language="Python" />
+        <watch expression="embedding_output.size()" language="Python" />
+        <watch expression="torch.cat([embedding_output, context_inputs], 1).size()" language="Python" />
+        <watch expression="extended_attention_mask.size()" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
       <expression>
-        <expression-string>self.model.classifier(outputs[0] + context_outputs[0])</expression-string>
+        <expression-string>extended_attention_mask.repeat([1,1,1,2])[0,0,0][89]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>(outputs[0] + context_outputs[0]).size()</expression-string>
+        <expression-string>extended_attention_mask.repeat([1,1,1,2])[0,0,0][90]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.model.classifier(sequence_output).size()</expression-string>
+        <expression-string>extended_attention_mask[0,0,0]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.model.classifier(sequence_output)</expression-string>
+        <expression-string>extended_attention_mask[0,0,0][90]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>outputs[0].size()</expression-string>
+        <expression-string>extended_attention_mask.repeat([1,1,1,2])[0,0,0]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>outputs</expression-string>
+        <expression-string>extended_attention_mask.repeat([1,1,1,2])[0,0,0,1]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>model(**inputs)</expression-string>
+        <expression-string>extended_attention_mask.repeat([1,1,1,2]).size()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>model.named_parameters().__next__()</expression-string>
+        <expression-string>extended_attention_mask.repeat([1,1,1,2])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>context_model.named_parameters().__next__()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>context_model.named_parameters()</expression-string>
+        <expression-string>extended_attention_mask.repeat(1)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_bert.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-24">
-          <caret line="17" selection-start-line="17" selection-end-line="28" selection-end-column="46" />
-          <folding>
-            <element signature="e#737#819#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
@@ -396,27 +417,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="753">
-          <caret line="374" column="25" selection-start-line="374" selection-start-column="25" selection-end-line="374" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pytorch_transformers/tokenization_roberta.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="98" column="39" selection-start-line="98" selection-start-column="39" selection-end-line="98" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_context.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="e#0#82#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -427,14 +431,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pytorch_transformers/convert_roberta_checkpoint_to_pytorch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3198">
+          <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/run_csq_with_context_v2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="49" column="55" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_bert.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="629" column="12" lean-forward="true" selection-start-line="629" selection-start-column="12" selection-end-line="629" selection-end-column="12" />
+          <folding>
+            <element signature="e#737#819#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="162" column="86" lean-forward="true" selection-start-line="162" selection-start-column="86" selection-end-line="162" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/run_csq_with_context.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-126">
-          <caret line="475" column="37" selection-start-line="475" selection-start-column="37" selection-end-line="475" selection-end-column="37" />
+        <state relative-caret-position="280">
+          <caret line="572" selection-start-line="572" selection-end-line="572" />
           <folding>
             <element signature="e#803#867#0" expanded="true" />
             <element signature="e#2226#2940#0" />
             <element signature="e#3437#4606#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_context.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="35" column="54" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#82#0" expanded="true" />
+            <element signature="e#1672#3029#0" />
           </folding>
         </state>
       </provider>
