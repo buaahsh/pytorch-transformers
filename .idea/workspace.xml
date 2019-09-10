@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f5bd8393-49e3-43d8-a114-1e079fa8e895" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pytorch_transformers/modeling_bert.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch_transformers/modeling_bert.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pytorch_transformers/modeling_context.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch_transformers/modeling_context.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/run_csq_with_context.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/run_csq_with_context.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,15 +43,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/run_csq_with_context.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="572" selection-start-line="572" selection-end-line="572" />
+            <state relative-caret-position="174">
+              <caret line="126" column="23" selection-start-line="126" selection-start-column="23" selection-end-line="130" />
               <folding>
                 <element signature="e#803#867#0" expanded="true" />
                 <element signature="e#2226#2940#0" />
-                <element signature="e#3437#4606#0" />
               </folding>
             </state>
           </provider>
@@ -89,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_bert.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="629" column="12" lean-forward="true" selection-start-line="629" selection-start-column="12" selection-end-line="629" selection-end-column="12" />
+            <state relative-caret-position="260">
+              <caret line="623" column="11" selection-start-line="623" selection-start-column="11" selection-end-line="623" selection-end-column="11" />
               <folding>
                 <element signature="e#737#819#0" expanded="true" />
               </folding>
@@ -107,11 +104,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_context.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="461">
-              <caret line="35" column="54" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
+              <caret line="35" column="55" lean-forward="true" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
               <folding>
                 <element signature="e#0#82#0" expanded="true" />
                 <element signature="e#1672#3029#0" />
@@ -148,8 +145,8 @@
       <find>adam</find>
       <find>clip</find>
       <find>log</find>
-      <find>context_in</find>
       <find>adamw</find>
+      <find>context_in</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -158,12 +155,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/examples/run_csq_with_context.py" />
         <option value="$PROJECT_DIR$/pytorch_transformers/optimization.py" />
         <option value="$PROJECT_DIR$/pytorch_transformers/tokenization_roberta.py" />
         <option value="$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py" />
-        <option value="$PROJECT_DIR$/pytorch_transformers/modeling_bert.py" />
         <option value="$PROJECT_DIR$/pytorch_transformers/modeling_context.py" />
+        <option value="$PROJECT_DIR$/pytorch_transformers/modeling_bert.py" />
+        <option value="$PROJECT_DIR$/examples/run_csq_with_context.py" />
       </list>
     </option>
   </component>
@@ -264,11 +261,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1932" height="943" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.24920969" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.24973601" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -276,8 +273,8 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
       <window_info anchor="bottom" id="Version Control" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.22559653" />
-      <window_info active="true" anchor="bottom" id="Debug" order="7" visible="true" weight="0.23101953" />
+      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.25710753" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.23101953" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" />
@@ -445,16 +442,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_bert.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="629" column="12" lean-forward="true" selection-start-line="629" selection-start-column="12" selection-end-line="629" selection-end-column="12" />
-          <folding>
-            <element signature="e#737#819#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="470">
@@ -462,25 +449,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/run_csq_with_context.py">
+    <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_context.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="572" selection-start-line="572" selection-end-line="572" />
+        <state relative-caret-position="461">
+          <caret line="35" column="55" lean-forward="true" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
           <folding>
-            <element signature="e#803#867#0" expanded="true" />
-            <element signature="e#2226#2940#0" />
-            <element signature="e#3437#4606#0" />
+            <element signature="e#0#82#0" expanded="true" />
+            <element signature="e#1672#3029#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_context.py">
+    <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_bert.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="35" column="54" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
+        <state relative-caret-position="260">
+          <caret line="623" column="11" selection-start-line="623" selection-start-column="11" selection-end-line="623" selection-end-column="11" />
           <folding>
-            <element signature="e#0#82#0" expanded="true" />
-            <element signature="e#1672#3029#0" />
+            <element signature="e#737#819#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/run_csq_with_context.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="126" column="23" selection-start-line="126" selection-start-column="23" selection-end-line="130" />
+          <folding>
+            <element signature="e#803#867#0" expanded="true" />
+            <element signature="e#2226#2940#0" />
           </folding>
         </state>
       </provider>
