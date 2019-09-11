@@ -22,7 +22,7 @@ import logging
 
 import torch
 import torch.nn as nn
-from torch.nn import CrossEntropyLoss, MSELoss
+from torch.nn import CrossEntropyLoss, MSELoss, BCELoss
 
 from .modeling_bert import BertEmbeddings, BertLayerNorm, BertModel, BertPreTrainedModel, gelu
 from .configuration_roberta import RobertaConfig
@@ -309,8 +309,9 @@ class RobertaForSequenceClassification(BertPreTrainedModel):
         outputs = (logits,) + outputs[2:]
         if labels is not None:
             if self.config.finetuning_task == 'bow':
-                loss_fct = MSELoss(reduction='sum')
-                loss = loss_fct(logits.view(-1), labels.view(-1))
+                loss_fct = BCELoss()
+                m = nn.Sigmoid()
+                loss = loss_fct(m(logits), labels)
             elif self.num_labels == 1:
                 #  We are doing regression
                 loss_fct = MSELoss()
