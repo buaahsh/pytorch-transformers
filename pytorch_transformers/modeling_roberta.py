@@ -308,7 +308,10 @@ class RobertaForSequenceClassification(BertPreTrainedModel):
 
         outputs = (logits,) + outputs[2:]
         if labels is not None:
-            if self.num_labels == 1:
+            if self.config.finetuning_task == 'bow':
+                loss_fct = MSELoss(reduction='sum')
+                loss = loss_fct(logits.view(-1), labels.view(-1))
+            elif self.num_labels == 1:
                 #  We are doing regression
                 loss_fct = MSELoss()
                 loss = loss_fct(logits.view(-1), labels.view(-1))

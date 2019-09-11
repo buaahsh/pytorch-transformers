@@ -25,6 +25,8 @@ from io import open
 
 from scipy.stats import pearsonr, spearmanr
 from sklearn.metrics import matthews_corrcoef, f1_score
+from utils_bow import convert_text_to_set_without_stop
+import numpy
 
 logger = logging.getLogger(__name__)
 
@@ -388,6 +390,37 @@ class WnliProcessor(DataProcessor):
         return examples
 
 
+class BagOfWordsProcessor(DataProcessor):
+    """Processor for the WNLI data set (GLUE version)."""
+
+    def get_train_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(
+            self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
+
+    def get_dev_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(
+            self._read_tsv(os.path.join(data_dir, "dev.tsv")), "dev")
+
+    def get_labels(self):
+        """See base class."""
+        return [0] * 50265
+
+    def _create_examples(self, lines, set_type):
+        """Creates examples for the training and dev sets."""
+        examples = []
+        for (i, line) in enumerate(lines):
+            if i == 0:
+                continue
+            guid = "%s-%s" % (set_type, line[0])
+            text_a = line[0]
+            text_b = None
+            label = convert_text_to_set_without_stop(line[1])
+            examples.append(
+                InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
+        return examples
+
 def convert_examples_to_features(examples, label_list, max_seq_length,
                                  tokenizer, output_mode,
                                  cls_token_at_end=False,
@@ -491,6 +524,14 @@ def convert_examples_to_features(examples, label_list, max_seq_length,
             label_id = label_map[example.label]
         elif output_mode == "regression":
             label_id = float(example.label)
+        elif output_mode == "bow":
+            # convert bow to vector
+            vocab_size = 50265
+            label_id = numpy.zeros(vocab_size)
+            label_text = ' '.join(example.label)
+            tokens = set(tokenizer.tokenize(label_text))
+            tokens_id = tokenizer.convert_tokens_to_ids(tokens)
+            label_id[tokens_id] = 1
         else:
             raise KeyError(output_mode)
 
@@ -502,7 +543,7 @@ def convert_examples_to_features(examples, label_list, max_seq_length,
             logger.info("input_ids: %s" % " ".join([str(x) for x in input_ids]))
             logger.info("input_mask: %s" % " ".join([str(x) for x in input_mask]))
             logger.info("segment_ids: %s" % " ".join([str(x) for x in segment_ids]))
-            logger.info("label: %s (id = %d)" % (example.label, label_id))
+            # logger.info("label: %s (id = %d)" % (example.label, label_id))
 
         features.append(
                 InputFeatures(input_ids=input_ids,
@@ -589,6 +630,7 @@ processors = {
     "qnli": QnliProcessor,
     "rte": RteProcessor,
     "wnli": WnliProcessor,
+    "bow": BagOfWordsProcessor,
 }
 
 output_modes = {
@@ -602,6 +644,7 @@ output_modes = {
     "qnli": "classification",
     "rte": "classification",
     "wnli": "classification",
+    "bow": "bow",
 }
 
 GLUE_TASKS_NUM_LABELS = {
