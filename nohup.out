@@ -1,0 +1,84 @@
+09/11/2019 18:12:00 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 4, distributed training: False, 16-bits training: False
+09/11/2019 18:12:00 - INFO - pytorch_transformers.configuration_utils -   loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/roberta-base-config.json from cache at /root/.cache/torch/pytorch_transformers/e1a2a406b5a05063c31f4dfdee7608986ba7c6393f7f79db5e69dcd197208534.9dad9043216064080cf9dd3711c53c0f11fe2b09313eaa66931057b4bdcaf068
+09/11/2019 18:12:00 - INFO - pytorch_transformers.configuration_utils -   Model config {
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": "bow",
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-05,
+  "max_position_embeddings": 514,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 50265,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 1,
+  "vocab_size": 50265
+}
+
+09/11/2019 18:12:01 - INFO - pytorch_transformers.tokenization_utils -   loading file https://s3.amazonaws.com/models.huggingface.co/bert/roberta-base-vocab.json from cache at /root/.cache/torch/pytorch_transformers/d0c5776499adc1ded22493fae699da0971c1ee4c2587111707a4d177d20257a2.ef00af9e673c7160b4d41cfda1f48c5f4cba57d5142754525572a846a1ab1b9b
+09/11/2019 18:12:01 - INFO - pytorch_transformers.tokenization_utils -   loading file https://s3.amazonaws.com/models.huggingface.co/bert/roberta-base-merges.txt from cache at /root/.cache/torch/pytorch_transformers/b35e7cd126cd4229a746b5d5c29a749e8e84438b14bcdb575950584fe33207e8.70bec105b4158ed9a1747fea67a43f5dee97855c64d62b6ec3742f4cfdb5feda
+09/11/2019 18:12:01 - INFO - pytorch_transformers.modeling_utils -   loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/roberta-base-pytorch_model.bin from cache at /root/.cache/torch/pytorch_transformers/228756ed15b6d200d7cb45aaef08c087e2706f54cb912863d2efe07c89584eb7.49b88ba7ec2c26a7558dda98ca3884c3b80fa31cf43a1b1f23aef3ff81ba344e
+09/11/2019 18:12:05 - INFO - pytorch_transformers.modeling_utils -   Weights of RobertaForSequenceClassification not initialized from pretrained model: ['classifier.dense.weight', 'classifier.dense.bias', 'classifier.out_proj.weight', 'classifier.out_proj.bias']
+09/11/2019 18:12:05 - INFO - pytorch_transformers.modeling_utils -   Weights from pretrained model not used in RobertaForSequenceClassification: ['lm_head.bias', 'lm_head.dense.weight', 'lm_head.dense.bias', 'lm_head.layer_norm.weight', 'lm_head.layer_norm.bias', 'lm_head.decoder.weight']
+09/11/2019 18:12:13 - INFO - __main__ -   Training/evaluation parameters Namespace(adam_epsilon=1e-08, cache_dir='', config_name='', data_dir='/home/shaohan/git/ecnet', device=device(type='cuda'), do_eval=False, do_lower_case=False, do_train=True, eval_all_checkpoints=False, evaluate_during_training=False, fp16=False, fp16_opt_level='O1', gradient_accumulation_steps=1, learning_rate=2e-05, local_rank=-1, logging_steps=100, max_grad_norm=1.0, max_seq_length=128, max_steps=-1, model_name_or_path='roberta-base', model_type='roberta', n_gpu=4, no_cuda=False, num_train_epochs=20.0, output_dir='/home/shaohan/git/ecnet/model_v1', output_mode='bow', overwrite_cache=False, overwrite_output_dir=False, per_gpu_eval_batch_size=8, per_gpu_train_batch_size=64, save_steps=10000, seed=42, server_ip='', server_port='', task_name='bow', tokenizer_name='', warmup_steps=0, weight_decay=0.0)
+09/11/2019 18:12:13 - INFO - __main__ -   Creating features from dataset file at /home/shaohan/git/ecnet
+Traceback (most recent call last):
+  File "examples/run_glue.py", line 501, in <module>
+    main()
+  File "examples/run_glue.py", line 453, in main
+    train_dataset = load_and_cache_examples(args, args.task_name, tokenizer, evaluate=False)
+  File "examples/run_glue.py", line 278, in load_and_cache_examples
+    examples = processor.get_dev_examples(args.data_dir) if evaluate else processor.get_train_examples(args.data_dir)
+  File "/home/shaohan/git/pytorch-transformers/examples/utils_glue.py", line 399, in get_train_examples
+    self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
+  File "/home/shaohan/git/pytorch-transformers/examples/utils_glue.py", line 86, in _read_tsv
+    for line in reader:
+KeyboardInterrupt
+09/11/2019 18:12:55 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 4, distributed training: False, 16-bits training: False
+09/11/2019 18:12:55 - INFO - pytorch_transformers.configuration_utils -   loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/roberta-base-config.json from cache at /root/.cache/torch/pytorch_transformers/e1a2a406b5a05063c31f4dfdee7608986ba7c6393f7f79db5e69dcd197208534.9dad9043216064080cf9dd3711c53c0f11fe2b09313eaa66931057b4bdcaf068
+09/11/2019 18:12:55 - INFO - pytorch_transformers.configuration_utils -   Model config {
+  "attention_probs_dropout_prob": 0.1,
+  "finetuning_task": "bow",
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-05,
+  "max_position_embeddings": 514,
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "num_labels": 50265,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pruned_heads": {},
+  "torchscript": false,
+  "type_vocab_size": 1,
+  "vocab_size": 50265
+}
+
+09/11/2019 18:12:56 - INFO - pytorch_transformers.tokenization_utils -   loading file https://s3.amazonaws.com/models.huggingface.co/bert/roberta-base-vocab.json from cache at /root/.cache/torch/pytorch_transformers/d0c5776499adc1ded22493fae699da0971c1ee4c2587111707a4d177d20257a2.ef00af9e673c7160b4d41cfda1f48c5f4cba57d5142754525572a846a1ab1b9b
+09/11/2019 18:12:56 - INFO - pytorch_transformers.tokenization_utils -   loading file https://s3.amazonaws.com/models.huggingface.co/bert/roberta-base-merges.txt from cache at /root/.cache/torch/pytorch_transformers/b35e7cd126cd4229a746b5d5c29a749e8e84438b14bcdb575950584fe33207e8.70bec105b4158ed9a1747fea67a43f5dee97855c64d62b6ec3742f4cfdb5feda
+09/11/2019 18:12:56 - INFO - pytorch_transformers.modeling_utils -   loading weights file https://s3.amazonaws.com/models.huggingface.co/bert/roberta-base-pytorch_model.bin from cache at /root/.cache/torch/pytorch_transformers/228756ed15b6d200d7cb45aaef08c087e2706f54cb912863d2efe07c89584eb7.49b88ba7ec2c26a7558dda98ca3884c3b80fa31cf43a1b1f23aef3ff81ba344e
+09/11/2019 18:13:00 - INFO - pytorch_transformers.modeling_utils -   Weights of RobertaForSequenceClassification not initialized from pretrained model: ['classifier.dense.weight', 'classifier.dense.bias', 'classifier.out_proj.weight', 'classifier.out_proj.bias']
+09/11/2019 18:13:00 - INFO - pytorch_transformers.modeling_utils -   Weights from pretrained model not used in RobertaForSequenceClassification: ['lm_head.bias', 'lm_head.dense.weight', 'lm_head.dense.bias', 'lm_head.layer_norm.weight', 'lm_head.layer_norm.bias', 'lm_head.decoder.weight']
+09/11/2019 18:13:09 - INFO - __main__ -   Training/evaluation parameters Namespace(adam_epsilon=1e-08, cache_dir='', config_name='', data_dir='/home/shaohan/git/ecnet', device=device(type='cuda'), do_eval=False, do_lower_case=False, do_train=True, eval_all_checkpoints=False, evaluate_during_training=False, fp16=False, fp16_opt_level='O1', gradient_accumulation_steps=1, learning_rate=2e-05, local_rank=-1, logging_steps=100, max_grad_norm=1.0, max_seq_length=128, max_steps=-1, model_name_or_path='roberta-base', model_type='roberta', n_gpu=4, no_cuda=False, num_train_epochs=20.0, output_dir='/home/shaohan/git/ecnet/model_v1', output_mode='bow', overwrite_cache=False, overwrite_output_dir=False, per_gpu_eval_batch_size=8, per_gpu_train_batch_size=64, save_steps=10000, seed=42, server_ip='', server_port='', task_name='bow', tokenizer_name='', warmup_steps=0, weight_decay=0.0)
+09/11/2019 18:13:09 - INFO - __main__ -   Creating features from dataset file at /home/shaohan/git/ecnet
+Traceback (most recent call last):
+  File "examples/run_glue.py", line 501, in <module>
+    main()
+  File "examples/run_glue.py", line 453, in main
+    train_dataset = load_and_cache_examples(args, args.task_name, tokenizer, evaluate=False)
+  File "examples/run_glue.py", line 278, in load_and_cache_examples
+    examples = processor.get_dev_examples(args.data_dir) if evaluate else processor.get_train_examples(args.data_dir)
+  File "/home/shaohan/git/pytorch-transformers/examples/utils_glue.py", line 399, in get_train_examples
+    self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
+  File "/home/shaohan/git/pytorch-transformers/examples/utils_glue.py", line 86, in _read_tsv
+    for line in reader:
+_csv.Error: line contains NULL byte
