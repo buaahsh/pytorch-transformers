@@ -393,6 +393,18 @@ class WnliProcessor(DataProcessor):
 class BagOfWordsProcessor(DataProcessor):
     """Processor for the WNLI data set (GLUE version)."""
 
+    @classmethod
+    def _read_tsv(cls, input_file, quotechar=None):
+        """Reads a tab separated value file."""
+        lines = []
+        with open(input_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    tokens = line.strip().split('\t')
+                    if len(tokens) == 2:
+                        lines.append(tokens)
+            return lines
+
     def get_train_examples(self, data_dir):
         """See base class."""
         return self._create_examples(
