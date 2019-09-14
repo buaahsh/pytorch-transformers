@@ -326,6 +326,7 @@ class RobertaForSequenceClassification(BertPreTrainedModel):
             if self.config.finetuning_task == 'bow':
                 loss_fct = BCELoss()
                 m = nn.Sigmoid()
+                # vocab_size = 50265
                 loss = loss_fct(m(logits), labels)
             elif self.num_labels == 1:
                 #  We are doing regression

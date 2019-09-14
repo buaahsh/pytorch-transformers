@@ -538,12 +538,15 @@ def convert_examples_to_features(examples, label_list, max_seq_length,
             label_id = float(example.label)
         elif output_mode == "bow":
             # convert bow to vector
-            vocab_size = 50265
-            label_id = numpy.zeros(vocab_size)
+            output_max_length = 128
+            # vocab_size = 50265
+            label_id = numpy.zeros(output_max_length)
             label_text = ' '.join(example.label)
             tokens = set(tokenizer.tokenize(label_text))
             tokens_id = tokenizer.convert_tokens_to_ids(tokens)
-            label_id[tokens_id] = 1
+            tokens_id = tokens_id[:output_max_length]
+            label_id[:len(tokens_id)] = tokens_id
+            # label_id[tokens_id] = 1
         else:
             raise KeyError(output_mode)
 
