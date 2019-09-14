@@ -130,6 +130,10 @@ def train(args, train_dataset, model, tokenizer):
                       'attention_mask': batch[1],
                       'token_type_ids': batch[2] if args.model_type in ['bert', 'xlnet'] else None,  # XLM and RoBERTa don't use segment_ids
                       'labels':         batch[3]}
+            if args.output_mode == 'bow':
+                logits_labels = torch.zeros([inputs['input_ids'].size(0), model.classifier.out_proj.out_features], device=args.device)
+                logits_labels.scatter_(1, inputs['labels'].long(), 1)
+                inputs['labels'] = logits_labels
             outputs = model(**inputs)
             loss = outputs[0]  # model outputs are always tuple in pytorch-transformers (see doc)
 
@@ -178,7 +182,7 @@ def train(args, train_dataset, model, tokenizer):
                     logger.info("Saving model checkpoint to %s", output_dir)
 
             if args.max_steps > 0 and global_step > args.max_steps:
-                epoch_iterator.close()
+                # epoch_iterator.close()
                 break
         if args.max_steps > 0 and global_step > args.max_steps:
             train_iterator.close()
