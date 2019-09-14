@@ -13,3 +13,4 @@ python examples/run_glue.py --model_type roberta \
  --output_dir $DIR/model_v1 \
  --logging_steps 100 \
  --save_steps 10000 \
+ --fp16

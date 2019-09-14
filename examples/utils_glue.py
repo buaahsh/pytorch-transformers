@@ -27,6 +27,7 @@ from scipy.stats import pearsonr, spearmanr
 from sklearn.metrics import matthews_corrcoef, f1_score
 from utils_bow import convert_text_to_set_without_stop
 import numpy
+from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
 
@@ -398,7 +399,7 @@ class BagOfWordsProcessor(DataProcessor):
         """Reads a tab separated value file."""
         lines = []
         with open(input_file, "r", encoding="utf-8") as f:
-            for line in f:
+            for line in tqdm(f):
                 if line.strip():
                     tokens = line.strip().split('\t')
                     if len(tokens) == 2:
@@ -422,7 +423,7 @@ class BagOfWordsProcessor(DataProcessor):
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
         examples = []
-        for (i, line) in enumerate(lines):
+        for (i, line) in tqdm(enumerate(lines)):
             if i == 0:
                 continue
             guid = "%s-%s" % (set_type, line[0])
@@ -456,7 +457,7 @@ def convert_examples_to_features(examples, label_list, max_seq_length,
     label_map = {label : i for i, label in enumerate(label_list)}
 
     features = []
-    for (ex_index, example) in enumerate(examples):
+    for (ex_index, example) in tqdm(enumerate(examples)):
         if ex_index % 10000 == 0:
             logger.info("Writing example %d of %d" % (ex_index, len(examples)))
 
