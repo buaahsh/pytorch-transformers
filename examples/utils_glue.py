@@ -402,7 +402,7 @@ class BagOfWordsProcessor(DataProcessor):
             for line in tqdm(f):
                 if line.strip():
                     tokens = line.strip().split('\t')
-                    if len(tokens) == 2:
+                    if len(tokens) >= 2:
                         lines.append(tokens)
             return lines
 
@@ -539,7 +539,7 @@ def convert_examples_to_features(examples, label_list, max_seq_length,
             label_id = float(example.label)
         elif output_mode == "bow":
             # convert bow to vector
-            output_max_length = 128
+            output_max_length = 64
             # vocab_size = 50265
             label_id = numpy.zeros(output_max_length)
             label_text = ' '.join(example.label)

@@ -131,7 +131,8 @@ def train(args, train_dataset, model, tokenizer):
                       'token_type_ids': batch[2] if args.model_type in ['bert', 'xlnet'] else None,  # XLM and RoBERTa don't use segment_ids
                       'labels':         batch[3]}
             if args.output_mode == 'bow':
-                logits_labels = torch.zeros([inputs['input_ids'].size(0), model.classifier.out_proj.out_features], device=args.device)
+                out_feature = 50265
+                logits_labels = torch.zeros([inputs['input_ids'].size(0), out_feature], device=args.device)
                 logits_labels.scatter_(1, inputs['labels'].long(), 1)
                 inputs['labels'] = logits_labels
             outputs = model(**inputs)
