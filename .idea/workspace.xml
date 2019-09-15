@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5bd8393-49e3-43d8-a114-1e079fa8e895" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/run_glue.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/run_glue.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/utils_glue.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/utils_glue.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py" beforeDir="false" afterPath="$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,24 +22,24 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="21" />
+          <entry key="py" value="22" />
           <entry key="pyi" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="21" />
+          <entry key="Python" value="22" />
           <entry key="PythonStub" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="2110" />
+          <entry key="py" value="2118" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="2110" />
+          <entry key="Python" value="2118" />
         </counts>
       </usages-collector>
     </session>
@@ -66,25 +66,9 @@
         <entry file="file://$PROJECT_DIR$/examples/utils_glue.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="175">
-              <caret line="541" column="14" selection-start-line="541" selection-start-column="14" selection-end-line="541" selection-end-column="32" />
+              <caret line="542" column="14" selection-start-line="542" selection-start-column="14" selection-end-line="542" selection-end-column="32" />
               <folding>
                 <element signature="e#785#849#0" expanded="true" />
-                <element signature="e#1932#2186#0" />
-                <element signature="e#3244#4320#0" />
-                <element signature="e#4363#5429#0" />
-                <element signature="e#4474#4607#0" />
-                <element signature="e#4659#4816#0" />
-                <element signature="e#4852#4931#0" />
-                <element signature="e#4990#5429#0" />
-                <element signature="e#5121#5405#0" />
-                <element signature="e#5482#5762#0" />
-                <element signature="e#5805#6721#0" />
-                <element signature="e#6764#7729#0" />
-                <element signature="e#7772#8771#0" />
-                <element signature="e#8813#9898#0" />
-                <element signature="e#9941#10986#0" />
-                <element signature="e#11028#12051#0" />
-                <element signature="e#12094#13096#0" />
                 <element signature="e#19122#19743#0" />
                 <element signature="e#19786#19817#0" />
                 <element signature="e#19855#20033#0" />
@@ -97,10 +81,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="329" selection-start-line="329" selection-end-line="329" />
+            <state relative-caret-position="205">
+              <caret line="332" selection-start-line="332" selection-end-line="332" />
               <folding>
                 <element signature="e#740#848#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/run_lm_finetuning.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="96" lean-forward="true" selection-start-line="96" selection-end-line="96" />
+              <folding>
+                <element signature="e#971#1035#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -109,8 +105,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/run_glue.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="135" column="48" selection-start-line="135" selection-start-column="48" selection-end-line="135" selection-end-column="48" />
+            <state relative-caret-position="225">
+              <caret line="137" column="22" selection-start-line="137" selection-start-column="22" selection-end-line="137" selection-end-column="22" />
               <folding>
                 <element signature="e#812#876#0" expanded="true" />
               </folding>
@@ -184,6 +180,7 @@
       <find>context_in</find>
       <find>100</find>
       <find>processors</find>
+      <find>device</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -378,16 +375,17 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.5020747" side_tool="true" weight="0.25208914" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4979253" weight="0.25208914" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4979253" visible="true" weight="0.25208914" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="2" />
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
       <window_info anchor="bottom" id="Version Control" order="5" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.4754991" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.3430127" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.4754991" />
+      <window_info anchor="bottom" id="Debug" order="7" visible="true" weight="0.3430127" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" />
@@ -428,7 +426,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py</url>
-          <line>389</line>
+          <line>391</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -447,28 +445,13 @@
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py</url>
-          <line>330</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/utils_glue.py</url>
-          <line>414</line>
+          <line>415</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py</url>
-          <line>329</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py</url>
-          <line>327</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/run_glue.py</url>
-          <line>136</line>
+          <line>137</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -480,7 +463,7 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="logits_labels.scatter_(1, inputs['labels'].long(), 1)" language="Python" />
+        <watch expression="model.classifier.out_proj.out_features" language="Python" />
         <watch expression="logits_labels.scatter_(1, inputs['labels'], _value)" language="Python" />
         <watch expression="logits_labels.scatter_(1, inputs['labels'], 1)" language="Python" />
       </configuration>
@@ -488,6 +471,11 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>model.classifier.out_proj.out_features</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>logits_labels.scatter_(1, inputs['labels'].long(), 1)</expression-string>
         <language-id>Python</language-id>
@@ -500,11 +488,6 @@
       </expression>
       <expression>
         <expression-string>logits_labels.scatter_(1, inputs['labels'], _value)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>model.classifier.out_proj.out_features</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -530,11 +513,6 @@
       </expression>
       <expression>
         <expression-string>inputs['input_ids'].size()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>inputs['labels']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -653,16 +631,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/run_lm_finetuning.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="96" lean-forward="true" selection-start-line="96" selection-end-line="96" />
-          <folding>
-            <element signature="e#971#1035#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/torch/nn/modules/module.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
@@ -673,25 +641,9 @@
     <entry file="file://$PROJECT_DIR$/examples/utils_glue.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
-          <caret line="541" column="14" selection-start-line="541" selection-start-column="14" selection-end-line="541" selection-end-column="32" />
+          <caret line="542" column="14" selection-start-line="542" selection-start-column="14" selection-end-line="542" selection-end-column="32" />
           <folding>
             <element signature="e#785#849#0" expanded="true" />
-            <element signature="e#1932#2186#0" />
-            <element signature="e#3244#4320#0" />
-            <element signature="e#4363#5429#0" />
-            <element signature="e#4474#4607#0" />
-            <element signature="e#4659#4816#0" />
-            <element signature="e#4852#4931#0" />
-            <element signature="e#4990#5429#0" />
-            <element signature="e#5121#5405#0" />
-            <element signature="e#5482#5762#0" />
-            <element signature="e#5805#6721#0" />
-            <element signature="e#6764#7729#0" />
-            <element signature="e#7772#8771#0" />
-            <element signature="e#8813#9898#0" />
-            <element signature="e#9941#10986#0" />
-            <element signature="e#11028#12051#0" />
-            <element signature="e#12094#13096#0" />
             <element signature="e#19122#19743#0" />
             <element signature="e#19786#19817#0" />
             <element signature="e#19855#20033#0" />
@@ -709,18 +661,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pytorch_transformers/modeling_roberta.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="329" selection-start-line="329" selection-end-line="329" />
+        <state relative-caret-position="205">
+          <caret line="332" selection-start-line="332" selection-end-line="332" />
           <folding>
             <element signature="e#740#848#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/examples/run_lm_finetuning.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="96" lean-forward="true" selection-start-line="96" selection-end-line="96" />
+          <folding>
+            <element signature="e#971#1035#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/run_glue.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="135" column="48" selection-start-line="135" selection-start-column="48" selection-end-line="135" selection-end-column="48" />
+        <state relative-caret-position="225">
+          <caret line="137" column="22" selection-start-line="137" selection-start-column="22" selection-end-line="137" selection-end-column="22" />
           <folding>
             <element signature="e#812#876#0" expanded="true" />
           </folding>

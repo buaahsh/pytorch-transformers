@@ -327,7 +327,9 @@ class RobertaForSequenceClassification(BertPreTrainedModel):
                 loss_fct = BCELoss()
                 m = nn.Sigmoid()
                 # vocab_size = 50265
-                loss = loss_fct(m(logits), labels)
+                logits_labels = torch.zeros_like(logits)
+                logits_labels.scatter_(1, labels.long(), 1)
+                loss = loss_fct(m(logits), logits_labels)
             elif self.num_labels == 1:
                 #  We are doing regression
                 loss_fct = MSELoss()
