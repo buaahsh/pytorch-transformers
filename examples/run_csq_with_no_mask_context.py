@@ -183,12 +183,13 @@ def convert_examples_to_features(examples, tokenizer, max_seq_length, is_trainin
             assert len(segment_ids) == max_seq_length
 
             # cook context mask input
-            max_context = 40
-            mask_id = 50264
-            context_concept = example.context[ending_index]
-            context_input_ids = tokenizer.encode(context_concept)
-            context_input_ids = tokenizer.add_special_tokens_single_sentence(context_input_ids)
-            context_input_ids += [mask_id] * (max_context - len(context_input_ids))
+            # max_context = 40
+            # mask_id = 50264
+            # context_concept = example.context[ending_index]
+            # context_input_ids = tokenizer.encode(context_concept)
+            # context_input_ids = tokenizer.add_special_tokens_single_sentence(context_input_ids)
+            # context_input_ids += [mask_id] * (max_context - len(context_input_ids))
+            context_input_ids = input_ids
 
             choices_features.append((context_tokens, input_ids, input_mask, segment_ids, context_input_ids))
 
@@ -328,8 +329,8 @@ def train(args, train_dataset, model, tokenizer, context_model):
                       'attention_mask': batch[1],
                       'token_type_ids': batch[2] if args.model_type in ['bert', 'xlnet'] else None,  # XLM don't use segment_ids
                       'labels':         batch[3],
-                      'context_input_ids': batch[4],}
-            outputs = cat_context_model.concat_with_mask(**inputs)
+                      }
+            outputs = cat_context_model.concat(**inputs)
             # outputs = model(**inputs)
             # context_outputs = context_model(**inputs)
             loss = outputs # model outputs are always tuple in pytorch-transformers (see doc)

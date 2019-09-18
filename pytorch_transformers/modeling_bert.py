@@ -621,16 +621,17 @@ class BertModel(BertPreTrainedModel):
 
         if context_inputs is not None:
             # logger.warning('You are using context inputs')
-            # extended_attention_mask = extended_attention_mask.repeat([1,1,1,2])
+            extended_attention_mask = extended_attention_mask.repeat([1,1,1,2])
 
             # don't mask any position for context
-            context_attention_mask = torch.ones_like(context_inputs[:,:,0])
-            context_attention_mask = context_attention_mask.unsqueeze(1).unsqueeze(2)
-
-            context_attention_mask = context_attention_mask.to(
-                dtype=next(self.parameters()).dtype)  # fp16 compatibility
-            context_attention_mask = (1.0 - context_attention_mask) * -10000.0
-            extended_attention_mask = torch.cat([extended_attention_mask, context_attention_mask], 3)
+            # context_attention_mask = torch.ones_like(context_inputs[:,:,0])
+            # context_attention_mask = context_attention_mask.unsqueeze(1).unsqueeze(2)
+            #
+            # context_attention_mask = context_attention_mask.to(
+            #     dtype=next(self.parameters()).dtype)  # fp16 compatibility
+            # context_attention_mask = (1.0 - context_attention_mask) * -10000.0
+            # extended_attention_mask = torch.cat([extended_attention_mask, context_attention_mask], 3)
+            #
             embedding_output = torch.cat([embedding_output, context_inputs], 1)
         encoder_outputs = self.encoder(embedding_output,
                                        extended_attention_mask,
